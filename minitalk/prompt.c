@@ -7,7 +7,9 @@ void		prompt(int pid)
 	{
 		i = 0;
 		while (line[i])
+		{
 			send(line[i]);
-		i++;
+			i++;
+		}
 	}
 }
