@@ -12,15 +12,44 @@
 
 #include "p4.h"
 
-int		ai_put_coin(t_tree *node, t_grid *grid)
+static int	ai_check(t_grid *grid, int row, int col);
+
+int			ai_put(t_grid *grid, int col, char player)
 {
-	grid->grid[node->land[node->x]][node->x] = node->player;
-	node->land[node->x] -= 1;
-	return (check_four(grid, node->land[node->x] + 1, node->x));
+	int	row;
+
+	row = grid->y - 1;
+	while (grid->grid[row][col])
+		row--;
+	grid->grid[row][col] = player;
+	return (ai_check(grid, row, col));
 }
 
-void	ai_remove_coin(t_tree *node, t_grid *grid)
+static int	ai_check(t_grid *grid, int row, int col)
 {
-	node->land[node->x] += 1;
-	grid->grid[node->land[node->x]][node->x] = 0;
+	int		ret;
+	int		res;
+
+	if ((res = check_vertical(grid, row, col)) > 3)
+		return (0);
+	ret = res;
+	if ((res = check_horizontal(grid, row, col)) > 3)
+		return (0);
+	ret += res;
+	if ((res = check_diagonal_up(grid, row, col)) > 3)
+		return (0);
+	ret += res;
+	if ((res = check_diagonal_down(grid, row, col)) > 3)
+		return (0);
+	return (ret + res);
+}
+
+void		ai_remove(t_grid *grid, int col)
+{
+	int	row;
+
+	row = 0;
+	while (!grid->grid[row][col])
+		row++;
+	grid->grid[row][col] = 0;
 }

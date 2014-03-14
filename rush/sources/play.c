@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <errno.h>
 #include <stdlib.h>
+#include <time.h>
 
 static int	get_entry(t_grid *grid);
 static int	check_entry(char *src, t_grid *grid);
@@ -38,14 +39,15 @@ int			play(t_grid *grid)
 
 	coins = grid->x * grid-> y;
 	coins = coins % 2 ? coins - 1 : coins;
-	player = (rand() < rand() ? 1 : 0);
+	srand(time(NULL));
+	player = rand() % 2;
 	winner = 0;
 	while (coins && !winner)
 	{
 		if (player)
 			winner = put_coin(grid, get_entry(grid), 1);
 		else
-			winner = ai_move(grid, 2);
+			winner = ai_move(grid, 9);
 		player = (player ? 0 : 1);
 		coins--;
 	}
