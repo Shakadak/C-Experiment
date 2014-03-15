@@ -31,18 +31,20 @@ static int	ai_check(t_grid *grid, int row, int col)
 	int		ret;
 	int		res;
 
+	ret = 0;
 	if ((res = check_vertical(grid, row, col)) > 3)
 		return (0);
-	ret = res;
+	ret = res > ret ? res : ret;
 	if ((res = check_horizontal(grid, row, col)) > 3)
 		return (0);
-	ret += res;
+	ret = res > ret ? res : ret;
 	if ((res = check_diagonal_up(grid, row, col)) > 3)
 		return (0);
-	ret += res;
+	ret = res > ret ? res : ret;
 	if ((res = check_diagonal_down(grid, row, col)) > 3)
 		return (0);
-	return (ret + res);
+	ret = res > ret ? res : ret;
+	return (ret);
 }
 
 void		ai_remove(t_grid *grid, int col)

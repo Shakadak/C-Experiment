@@ -52,7 +52,8 @@ int		ai_ply(t_grid *g);
 int		ai_move(t_grid *grid, int depth);
 t_tree	**new_litter(int size, char player, int *row);
 
-int		minimax(t_grid *grid, int depth, char player);
+int		minimax(t_grid *grid, int depth);
+int		heuristic(t_grid *grid, int row, char player);
 
 int		check_vertical(t_grid *grid, int row, int col);
 int		check_horizontal(t_grid *grid, int row, int col);

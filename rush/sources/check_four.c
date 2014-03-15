@@ -39,6 +39,7 @@ int	check_vertical(t_grid *grid, int row, int col)
 	i = row;
 	while (--i >= 0 && grid->grid[i][col] == origin)
 		size++;
+	return (size);
 }
 
 int	check_horizontal(t_grid *grid, int row, int col)

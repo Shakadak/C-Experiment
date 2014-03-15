@@ -47,7 +47,7 @@ int			play(t_grid *grid)
 		if (player)
 			winner = put_coin(grid, get_entry(grid), 1);
 		else
-			winner = put_coin(grid, minimax(grid, 0, 2), 2);
+			winner = put_coin(grid, minimax(grid, 2), 2);
 		player = (player ? 0 : 1);
 		coins--;
 	}

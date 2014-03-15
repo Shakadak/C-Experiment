@@ -31,7 +31,8 @@ SRC		:=	main.c \
 			check_four.c \
 			free_grid.c \
 			ai_move.c \
-			ai_coin.c
+			ai_coin.c \
+			ai.c
 OBJ		:=	$(SRC:.c=.o)
 
 HEAD	:=	p4.h
