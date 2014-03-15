@@ -14,6 +14,10 @@
 
 #include "libft.h"
 
+static int	min(t_grid *grid, int depth, char player);
+static int	max(t_grid *grid, int depth, char player);
+static int	heuristic(t_grid *grid, int row, char player);
+
 static int	check_move(t_grid *grid, int depth, int x, char player);
 
 int			ai_move(t_grid *grid, int depth)
@@ -82,12 +86,36 @@ static int	check_move(t_grid *grid, int depth, int x, char player)
 	return (chosen[1]);
 }
 
+int			minimax(t_grid *grid, int depth, char player)
+{
+	int		chosen[3] =
+	{
+		-1, -1000, 0
+	};
+	int		ret;
+
+	while (++chosen[0] < grid->x)
+	{
+		if (grid->grid[0][chosen[0]] != 0)
+			continue ;
+		ret = min(grid, depth, player);
+		if (ret > chosen[1])
+		{
+			chosen[1] = ret;
+			chosen[2] = chosen[0];
+		}
+	}
+	return (chosen[2]);
+}
+
 static int	heuristic(t_grid *grid, int row, char player)
 {
 	int		ret;
 
-	ret = ai_check(grid, row);
+	ret = ai_put(grid, row, player);
 	ret *= (player == 1 ? -1 : 1);
+	ft_putnbr(ret);
+	ft_putchar('\n');
 	return (ret);
 }
 
@@ -99,16 +127,39 @@ static int	min(t_grid *grid, int depth, char player)
 	};
 	int ret;
 
+	ft_putendl("min");
 	while (++chosen[0] < grid->x)
 	{
 		if (grid->grid[0][chosen[0]] != 0)
 			continue ;
-		ret = ai_put(grid, chosen[0], player % 2 + 1);
-		if (depth)
-			ret = max(grid, depth - 1, 2);
+		ret = heuristic(grid, chosen[0], player % 2 + 1);
+		if (depth > 0)
+			ret = max(grid, depth - 1, player % 2 + 1);
 		ret = (!ret ? 1000 : ret);
-		chosen[1] = (ret < chosen ? ret : chosen[1]);
-		remove_coin(grid, chosen[0], player);
+		chosen[1] = (ret < chosen[1] ? ret : chosen[1]);
+		remove_coin(grid, chosen[0]);
 	}
-	
+	return (chosen[1]);
+}
+
 static int	max(t_grid *grid, int depth, char player)
+{
+	int	chosen[2] =
+	{
+		-1, -1000
+	};
+	int ret;
+
+	while (++chosen[0] < grid->x)
+	{
+		if (grid->grid[0][chosen[0]] != 0)
+			continue ;
+		ret = heuristic(grid, chosen[0], player % 2 + 1);
+		if (depth)
+			ret = min(grid, depth - 1, player % 2 + 1);
+		ret = (!ret ? -1000 : ret);
+		chosen[1] = (ret > chosen[1] ? ret : chosen[1]);
+		remove_coin(grid, chosen[0]);
+	}
+	return (chosen[1]);
+}

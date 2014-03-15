@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "p4.h"
 
 static int	ai_check(t_grid *grid, int row, int col);
