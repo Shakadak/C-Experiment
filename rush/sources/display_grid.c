@@ -88,7 +88,7 @@ void		display_grid(t_grid g)
 {
 	int	i;
 
-	write(1, "\033[2J\033[0;0H", 10);
+	write(1, "\033[0;0H\033[2J", 10);
 	i = 0;
 	display_grid_up(g.x);
 	while (i < g.y * 2 - 1)

@@ -12,25 +12,20 @@
 
 #include "p4.h"
 
-static int	check_vertical(t_grid *grid, int row, int col);
-static int	check_horizontal(t_grid *grid, int row, int col);
-static int	check_diagonal_up(t_grid *grid, int row, int col);
-static int	check_diagonal_down(t_grid *grid, int row, int col);
-
 int			check_four(t_grid *grid, int row, int col)
 {
-	if (check_vertical(grid, row, col))
+	if (check_vertical(grid, row, col) > 3)
 		return ((int)grid->grid[row][col]);
-	if (check_horizontal(grid, row, col))
+	if (check_horizontal(grid, row, col) > 3)
 		return ((int)grid->grid[row][col]);
-	if (check_diagonal_up(grid, row, col))
+	if (check_diagonal_up(grid, row, col) > 3)
 		return ((int)grid->grid[row][col]);
-	if (check_diagonal_down(grid, row, col))
+	if (check_diagonal_down(grid, row, col) > 3)
 		return ((int)grid->grid[row][col]);
 	return (0);
 }
 
-static int	check_vertical(t_grid *grid, int row, int col)
+int	check_vertical(t_grid *grid, int row, int col)
 {
 	char	origin;
 	int		i;
@@ -39,17 +34,15 @@ static int	check_vertical(t_grid *grid, int row, int col)
 	size = 1;
 	i = row;
 	origin = grid->grid[row][col];
-	while (++i < (int)grid->y && grid->grid[i][col] == origin)
+	while (++i < grid->y && grid->grid[i][col] == origin)
 		size++;
 	i = row;
 	while (--i >= 0 && grid->grid[i][col] == origin)
 		size++;
-	if (size > 3)
-		return (1);
-	return (0);
+	return (size);
 }
 
-static int	check_horizontal(t_grid *grid, int row, int col)
+int	check_horizontal(t_grid *grid, int row, int col)
 {
 	char	origin;
 	int		j;
@@ -58,17 +51,15 @@ static int	check_horizontal(t_grid *grid, int row, int col)
 	size = 1;
 	j = col;
 	origin = grid->grid[row][col];
-	while (++j < (int)grid->x && grid->grid[row][j] == origin)
+	while (++j < grid->x && grid->grid[row][j] == origin)
 		size++;
 	j = col;
 	while (--j >= 0 && grid->grid[row][j] == origin)
 		size++;
-	if (size > 3)
-		return (1);
-	return (0);
+	return (size);
 }
 
-static int	check_diagonal_up(t_grid *g, int row, int col)
+int	check_diagonal_up(t_grid *g, int row, int col)
 {
 	char	origin;
 	int		i;
@@ -79,18 +70,16 @@ static int	check_diagonal_up(t_grid *g, int row, int col)
 	i = row;
 	j = col;
 	origin = g->grid[row][col];
-	while (++i < (int)g->y && ++j < (int)g->x && g->grid[i][j] == origin)
+	while (++i < g->y && ++j < g->x && g->grid[i][j] == origin)
 		size++;
 	i = row;
 	j = col;
 	while (--i >= 0 && --j >= 0 && g->grid[i][j] == origin)
 		size++;
-	if (size > 3)
-		return (1);
-	return (0);
+	return (size);
 }
 
-static int	check_diagonal_down(t_grid *grid, int row, int col)
+int	check_diagonal_down(t_grid *grid, int row, int col)
 {
 	char	origin;
 	int		i;
@@ -101,13 +90,11 @@ static int	check_diagonal_down(t_grid *grid, int row, int col)
 	i = row;
 	j = col;
 	origin = grid->grid[row][col];
-	while (++i < (int)grid->y && --j >= 0 && grid->grid[i][j] == origin)
+	while (++i < grid->y && --j >= 0 && grid->grid[i][j] == origin)
 		size++;
 	i = row;
 	j = col;
-	while (--i >= 0 && ++j < (int)grid->x && grid->grid[i][j] == origin)
+	while (--i >= 0 && ++j < grid->x && grid->grid[i][j] == origin)
 		size++;
-	if (size > 3)
-		return (1);
-	return (0);
+	return (size);
 }

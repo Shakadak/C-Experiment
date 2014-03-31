@@ -22,15 +22,17 @@ DIRLIB	:=	libft
 ### FILES ###
 
 SRC		:=	main.c \
-				init_grid.c \
-				fatal.c \
-				check_params.c \
-				display_grid.c \
-				play.c \
-				put_coin.c \
-				check_four.c \
-				free_grid.c \
-				ai_move.c
+			init_grid.c \
+			fatal.c \
+			check_params.c \
+			display_grid.c \
+			play.c \
+			put_coin.c \
+			check_four.c \
+			free_grid.c \
+			ai_move.c \
+			ai_coin.c \
+			ai.c
 OBJ		:=	$(SRC:.c=.o)
 
 HEAD	:=	p4.h
@@ -45,7 +47,7 @@ PLIB	:=	$(DIRLIB)/$(LIB)
 ### COMPILATION VARIABLES ###
 
 CC		:=	gcc
-C_FLAG	:=	-Wall -Wextra -Werror -g
+C_FLAG	:=	-Wall -Wextra# -Werror -g
 O_FLAG	:=	-O3
 L_FLAG	:=	-L $(DIRLIB) -lft
 C_INC	:=	-I $(DIRINC) -I $(DIRLIB)/$(DIRINC)
