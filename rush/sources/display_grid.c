@@ -33,10 +33,10 @@ void		display_grid_up(int i)
 	}
 	write(1, "\n\t\033[34m", 7);
 	WRITE_GRAPH_MOD;
-	write (1, "lq", 2);
+	write (1, "l ", 2);
 	while (i-- > 1)
-		write (1, " qwq", 4);
-	write (1, " qk", 3);
+		write (1, "  w ", 4);
+	write (1, "  k", 3);
 	write(1, "\033(B\n", 4);
 }
 
@@ -44,10 +44,10 @@ void		display_grid_mid(int i)
 {
 	write(1, "\t\033[34m", 6);
 	WRITE_GRAPH_MOD;
-	write(1, "tq", 2);
+	write(1, "t ", 2);
 	while (i-- > 1)
-		write (1, "qqnq", 4);
-	write(1, "qqu", 3);
+		write (1, "  n ", 4);
+	write(1, "  u", 3);
 	write(1, "\033(B\n", 4);
 }
 

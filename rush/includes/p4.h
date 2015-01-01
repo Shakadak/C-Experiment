@@ -14,7 +14,7 @@
 # define P4_H
 
 # define MAXDEPTH			4
-# define WRITE_TEXT_MOD	write(1, "\033(B", 3)
+# define WRITE_TEXT_MOD		write(1, "\033(B", 3)
 # define WRITE_GRAPH_MOD	write(1, "\033(0", 3)
 
 typedef struct		s_grid
