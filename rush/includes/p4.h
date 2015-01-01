@@ -13,7 +13,7 @@
 #ifndef P4_H
 # define P4_H
 
-# define MAXDEPTH			4
+# define MAXDEPTH			8
 # define WRITE_TEXT_MOD		write(1, "\033(B", 3)
 # define WRITE_GRAPH_MOD	write(1, "\033(0", 3)
 
